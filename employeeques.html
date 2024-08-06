@@ -1,0 +1,328 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+    <%
+String name=String.valueOf(session.getAttribute("name"));
+String id=String.valueOf(session.getAttribute("id"));
+String school=String.valueOf(session.getAttribute("school"));
+
+     %> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> Welcome!<%out.print(name); %></title> 
+
+<style>
+
+
+body {
+font-family: Arial, sans-serif;
+background-color: #f0f0f0;
+margin: 0;
+padding: 0;
+}
+
+header {
+background-color: #007BFF;
+color: #fff;
+
+padding: 20px 0;
+}
+
+h1 {
+font-size: 28px;
+text-align: center;
+}
+
+.container {
+max-width: 600px;
+margin: 20px auto;
+padding: 20px;
+background-color: #fff;
+box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+border-radius: 5px;
+}
+
+.question {
+font-size: 18px;
+font-weight: bold;
+margin-bottom: 10px;
+}
+
+label {
+display: block;
+margin-bottom: 10px;
+}
+
+input[type="radio"] {
+margin-right: 5px;
+}
+
+button {
+background-color: #007BFF;
+color: #fff;
+border: none;
+padding: 10px 20px;
+font-size: 16px;
+border-radius: 5px;
+cursor: pointer;
+}
+
+button:hover {
+background-color: #0056b3;
+}
+
+footer {
+text-align: center;
+padding: 20px 0;
+}
+ .info{
+        margin-top:-40px;
+        margin-left:90%;
+        line-height:60px;}
+</style>
+</head>
+<body>
+ <header>
+        <h1>Test</h1>
+        
+        <h3 class="info"><%out.print(name); %></h3>
+        <h3 class="info"><%out.print(school); %></h3>
+        <h3 class="info"><%out.print(id); %></h3>
+        
+       
+        
+    </header>
+<div class="result">
+    <form action="Result" method="POST">
+        <input type="hidden" name="id" id="id" value="<%out.print(id); %>">
+
+<div class="question">
+<p>1.Are you finding it difficult to concentrate or make decisions?  </p>
+<ul class="options">
+<li class="option">
+<input type="radio" name="q1" value="2" onchange="sum()">
+Option A: Absolutely
+</li>
+<li class="option">
+<input type="radio" name="q1" value="5" onchange="sum()">
+Option B: not really
+</li>
+<li class="option">
+<input type="radio" name="q1" value="10"required onchange="sum()">
+Option C: never
+</li>
+
+
+</ul>
+</div>
+<div class="question">
+<p>2.Have you lost interest or pleasure in activities that you used to enjoy?</p>
+<ul class="options">
+<li class="option">
+<input type="radio" name="q2" value="2" onchange="sum()">
+Option A: recently
+</li>
+<li class="option">
+<input type="radio" name="q2" value="5" onchange="sum()">
+Option B: long time ago
+</li>
+<li class="option">
+<input type="radio" name="q2" value="10" required onchange="sum()">
+Option C: not yet
+</li>
+
+
+</ul>
+</div>
+<div class="question">
+<p>3.What strategies have you been using to manage stress or stay motivated during this period of change?</p>
+<ul class="options">
+<li class="option">
+    <input type="radio" name="q3" value="10" required onchange="sum()">
+    Option A: Exploring new hobbies
+</li>
+<li class="option">
+    <input type="radio" name="q3" value="5" onchange="sum()">
+    Option B: Learning from setbacks
+</li>
+<li class="option">
+    <input type="radio" name="q3" value="4" onchange="sum()">
+    Option C: Maintaining a daily routine
+</li>
+ 
+
+
+</ul>
+</div>
+<div class="question">
+<p>4.What steps have you taken toward achieving your goals?</p>
+<ul class="options">
+    <li class="option">
+        <input type="radio" name="q4" value="10" onchange="sum()">
+        Option A: Tracking my progress 
+    </li>
+    <li class="option">
+        <input type="radio" name="q4" value="5" onchange="sum()">
+        Option B: making necessary adjustments
+    </li>
+    <li class="option">
+        <input type="radio" name="q4" value="3"required onchange="sum()">
+        Option C: not done yet
+    </li>
+    
+
+    
+</ul>
+</div>
+<div class="question">
+<p>5.Who are the people turn to, when you need someone to talk to or lean on for support?</p>
+    <ul class="options">
+        <li class="option">
+            <input type="radio" name="q5" value="10" onchange="sum()">
+            Option A:family members
+        </li>
+        <li class="option">
+            <input type="radio" name="q5" value="5" onchange="sum()">
+            Option B:  mentor or a trusted person
+        </li>
+        <li class="option">
+            <input type="radio" name="q5" value="2" required onchange="sum()">
+            Option C : don't need one
+        </li>
+        
+
+        
+    </ul>
+</div>
+<div class="question">
+    <p>6.You typically handle major life transitions or unexpected changes in your circumstances?</p>
+        <ul class="options">
+            <li class="option">
+                <input type="radio" name="q6" value="10" onchange="sum()">
+                Option A:  approach it with a proactive mindset
+            </li>
+            <li class="option">
+                <input type="radio" name="q6" value="4" onchange="sum()">
+                Option B: -I use self-care practices like meditation
+            </li><li class="option">
+                <input type="radio" name="q6" value="2" required onchange="sum()">
+                Option C: understanding that unexpected changes are a part of life.
+            </li>
+            
+    
+           
+        </ul>
+    </div>
+    <div class="question">
+        <p>7. What is your recent accomplishment that made you feel good about yourself?</p>
+            <ul class="options">
+                <li class="option">
+                    <input type="radio" name="q7" value="10" onchange="sum()">
+                    Option A: successfully learned a new skill
+                </li>
+                <li class="option">
+                    <input type="radio" name="q7" value="5" onchange="sum()">
+                    Option B: finished reading a thought-provoking book
+                </li>
+                <li class="option">
+                    <input type="radio" name="q7" value="2" required onchange="sum()">
+                    Option C: faced a challenging situation head-on and found a solution
+                </li>
+                
+        
+                
+            </ul>
+        </div>
+        <div class="question">
+            <p>8 Have you noticed any changes in your sleeping or eating patterns lately?</p>
+                <ul class="options">
+                    <li class="option" >
+                        <input type="radio" name="q8" value="2" onchange="sum()">
+                        Option A: yes
+                    </li>
+                    <li class="option">
+                        <input type="radio" name="q8" value="10" onchange="sum()">
+                        Option B: no
+                    </li><li class="option">
+                        <input type="radio" name="q8" value="5" required onchange="sum()">
+                        Option C: not sure
+                    </li>
+                    
+            
+                   
+                </ul>
+            </div>
+            <div class="question">
+                <p>9. What are the things that bring you a sense of fulfillment or purpose?</p>
+                    <ul class="options">
+                        <li class="option">
+                            <input type="radio" name="q9" value="10" onchange="sum()">
+                            Option A: Achieving my personal goals
+                        </li>
+                        <li class="option">
+                            <input type="radio" name="q9" value="5" onchange="sum()">
+                            Option B: Connecting with nature and spending time outdoors
+                        </li>
+                        <li class="option">
+                            <input type="radio" name="q9" value="2" required onchange="sum()">
+                            Option C: traveling alone allows me to broaden my horizons
+                        </li>
+                       
+                
+                        
+                    </ul>
+                </div>
+                <div class="question">
+                    <p>10.Are there any specific goals or aspirations that you're working towards, even if they're small ?</p>
+                        <ul class="options">
+                            <li class="option">
+                                <input type="radio" name="q10" value="10" onchange="sum()">
+                                Option A: .One of my aspirations is to learn a new language
+                            </li>
+                            <li class="option">
+                                <input type="radio" name="q10" value="5" onchange="sum()">
+                                Option B: striving to develop a healthier lifestyle
+                            </li>
+                            <li class="option">
+                                <input type="radio" name="q10" value="2" required onchange="sum()">
+                                Option C: currently working on improving my time management skills
+                            </li>
+                    
+                           
+                        </ul>
+                   </div>
+
+
+<input type="hidden" id="scores" name="scores" value="" />
+
+
+
+<input type="submit"></form>
+     </div>
+
+    
+         <script>
+function sum() {
+    console.log("hiiii");
+
+    const radioButtons = document.querySelectorAll('input[type="radio"]:checked');
+    let totalPercentage = 0;
+
+    radioButtons.forEach((radio) => {
+        totalPercentage += parseInt(radio.value);
+    });
+
+   /// document.querySelector("#score").innerHTML = totalPercentage;
+    document.getElementById("scores").value = totalPercentage;
+
+    // Optionally, you can reset the form or show an alert
+    // document.getElementById('quizForm').reset();
+    // alert('Quiz completed successfully!\nTotal Percentage: ' + totalPercentage + '%');
+}
+</script>
+       
+
+</body>
+</html>

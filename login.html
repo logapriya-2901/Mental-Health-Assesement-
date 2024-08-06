@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Test login form</title>
+    <link rel="stylesheet" href="log.css">
+</head>
+
+    <style>
+        body {
+    font-family:'Luciucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    background-color: #f7f5f5ce;
+    margin: 1px;
+    padding:2px;
+}
+
+header {
+    background-color: #007BFF;
+    color: #fff;
+    text-align: center;
+    padding: 5px;
+}
+
+h1 {
+    font-size: 25px;
+}
+
+.form{
+    max-width: 500px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(10, 105, 231, 0.782);
+    border-radius: 5px;
+}
+
+.form-group {
+    margin-bottom: 10px;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 3px;
+}
+
+ .box{
+    width: 95%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+button{
+        background-color:rgba(146, 199, 252, 0.963) ;
+        color:rgb(11, 11, 10);
+        padding: 7px 25px;
+        margin: 8px 2px;
+        cursor: pointer;
+        border-radius: 2px;
+
+        }
+    button:hover{
+        background-color:rgba(100, 147, 249, 0.881);}
+.error{
+color:red;
+font-size:10px;}
+    </style>
+    <body>
+    <header>
+        <h1>Test login form</h1>
+    </header>
+
+    <div class="form">
+        <form action="Registration" method="POST" >
+        <div class="form-group">
+                <label for="name">Student/Employee Id:</label>
+                <input class="box"   type="number" id="sid" name="sid" >
+                <div class="error" id="idError"></div>
+            </div>
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input class="box"   type="text" id="name" name="name" >
+                <div class="error" id="namError"></div>
+            </div>
+
+            <div class="form-group">
+                <label for="email">Email:</label>
+                <input class="box"    type="email" id="email" name="email" >
+                <div class="error" id="emailError"></div>
+            </div>
+
+            <div class="form-group">
+                <label  for="age">Age:</label>
+                <input class="box" type="number" id="age" name="age" >
+                <div class="error" id="ageError"></div>
+            </div>
+
+            <div class="form-group">
+                <label  for="gender">Gender:</label>
+                <select class="box"    id="gender" name="gender" >
+                    <option value="male">Male</option>
+                    <option value="female">Female</option>
+                    <option value="other">Other</option>
+                </select>
+                                <div class="error" id="genderError"></div>
+                
+            </div>
+
+            <div class="form-group">
+                <label  for="profession">Profession:</label>
+                <select class="box" id="profession" name="profession" >
+                    <option value="student">student</option>
+                    <option value="employee">employee</option>
+                    
+                </select>
+            </div> 
+            <div class="form-group">
+                <label for="school">School/Office Name:</label>
+                <input class="box"   type="text" id="school" name="school" >
+            </div>
+            <div class="form-group">
+                <label for="city">City:</label>
+                <input class="box"   type="text" id="city" name="city" >
+            </div>
+
+            <div>
+               
+                <button class="button" type="submit" value="Login"> submit</button>
+            </div>
+           
+        </form>
+    </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var form = document.querySelector('form');
+        form.addEventListener('submit', function (event) {
+            // Validation for Student/Employee Id
+            var sidInput = document.getElementById('sid');
+            var idError = document.getElementById('idError');
+            if (!sidInput.value || sidInput.value.trim() === '') {
+                idError.textContent = 'Please enter Student/Employee Id';
+                idError.classList.add('error');
+                event.preventDefault();
+            } else {
+                idError.textContent = '';
+                idError.classList.remove('error');
+            }
+
+            // Validation for Name
+            var nameInput = document.getElementById('name');
+            var namError = document.getElementById('namError');
+            if (!nameInput.value || nameInput.value.trim() === '') {
+                namError.textContent = 'Please enter Name';
+                namError.classList.add('error');
+                event.preventDefault();
+            } else {
+                namError.textContent = '';
+                namError.classList.remove('error');
+            }
+
+            // Validation for Email
+            var emailInput = document.getElementById('email');
+            var emailError = document.getElementById('emailError');
+            if (!isValidEmail(emailInput.value)) {
+                emailError.textContent = 'Please enter a valid email address';
+                emailError.classList.add('error');
+                event.preventDefault();
+            } else {
+                emailError.textContent = '';
+                emailError.classList.remove('error');
+            }
+
+            // Validation for Age
+            var ageInput = document.getElementById('age');
+            var ageError = document.getElementById('ageError');
+            if (!ageInput.value || isNaN(ageInput.value)) {
+                ageError.textContent = 'Please enter a valid age';
+                ageError.classList.add('error');
+                event.preventDefault();
+            } else {
+                ageError.textContent = '';
+                ageError.classList.remove('error');
+            }
+
+            // Validation for Gender
+            var genderSelect = document.getElementById('gender');
+            var genderError = document.getElementById('genderError');
+            if (!genderSelect.value) {
+                genderError.textContent = 'Please select a gender';
+                genderError.classList.add('error');
+                event.preventDefault();
+            } else {
+                genderError.textContent = '';
+                genderError.classList.remove('error');
+            }
+
+            // Validation for Profession
+            var professionSelect = document.getElementById('profession');
+            if (!professionSelect.value) {
+                event.preventDefault();
+                return;
+            }
+
+            // Additional validations for other fields can be added here
+
+            // If all validations pass, the form will be submitted
+        });
+
+        // Function to check if the email is valid
+        function isValidEmail(email) {
+            var emailPattern = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+            return emailPattern.test(email);
+        }
+    });
+</script>
+
+	   
+
+</body>
+</html>

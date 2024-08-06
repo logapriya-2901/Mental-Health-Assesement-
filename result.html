@@ -1,0 +1,80 @@
+package com.mental;
+
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+/**
+ * Servlet implementation class Registration
+ */
+@WebServlet("/Result")
+public class Result extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+   
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		String scores=request.getParameter("scores");
+		int id=Integer.parseInt(request.getParameter("id"));
+		System.out.println("KI   ");
+		System.out.print(id);
+		System.out.print("gggg"+scores);
+			//HttpSession session=request.getSession();
+		
+		int score=Integer.parseInt(scores);
+		String remark;
+		if(score<10)remark="stress";
+		else if(score>10&&score<50)remark="abnormal";
+		else if(score>50&&score<90) remark="normal";
+		else remark="happy";
+			RequestDispatcher dispatcher=null;
+			Connection con=null;
+			try {
+				Class.forName("com.mysql.cj.jdbc.Driver");
+				 con=DriverManager.getConnection("jdbc:mysql://localhost:3306/mental?useSSL=false","root","priya@6265088");
+				PreparedStatement pst=con.prepareStatement("update login set score=?,Remarks=? where id=?");
+				pst.setString(1,scores);
+				pst.setString(2,remark);
+				pst.setInt(3,id);
+				int rowCount=pst.executeUpdate();
+				
+				dispatcher=request.getRequestDispatcher("result.html");
+				
+
+				if(rowCount>0) {
+					request.setAttribute("status", "success");
+					
+				}
+				else {
+					request.setAttribute("status", "failed");
+					
+				}
+				dispatcher.forward(request, response);
+			}
+			catch(Exception e) {
+				e.printStackTrace();
+			}
+			finally {
+				try {
+					con.close();
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+			}
+
+	
+	
+
+}
